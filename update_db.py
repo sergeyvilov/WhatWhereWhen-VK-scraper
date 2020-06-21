@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 import vk_api
 
 import mysql.connector
@@ -64,9 +65,9 @@ total_added = 0
 post_number = 0
 
 while post_number < total_posts:
-    some_posts = vk.wall.get(count = posts_per_call, offset = post_number, 
-    domain = 'questions_of_chgk') 
-    pending_questions = []   
+    some_posts = vk.wall.get(count = posts_per_call, offset = post_number,
+    domain = 'questions_of_chgk')
+    pending_questions = []
     for c_post in range(posts_per_call):
         post_number += 1
         if post_number > total_posts:
@@ -92,7 +93,7 @@ while post_number < total_posts:
                 post_number = total_posts
                 break
     if pending_questions:
-        sql = ("INSERT INTO questions_of_chgk" 
+        sql = ("INSERT INTO questions_of_chgk"
           " (id, date, text, answer, yes, no, likes, views, solved)"
           " VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)")
         mycursor.executemany(sql, pending_questions)
